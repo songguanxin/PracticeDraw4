@@ -12,6 +12,10 @@ import android.view.View;
 
 import com.hencoder.hencoderpracticedraw4.R;
 
+/**
+ * @author sgx
+ * 几何变换
+ */
 public class Practice03TranslateView extends View {
     Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
     Bitmap bitmap;
@@ -37,8 +41,18 @@ public class Practice03TranslateView extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-
+        //锁定画布,保存之前的画布状态
+        canvas.save();
+        //将原点移动到(-200,0)
+        canvas.translate(200,0);
+        canvas.rotate(45,-200,0);
         canvas.drawBitmap(bitmap, point1.x, point1.y, paint);
-        canvas.drawBitmap(bitmap, point2.x, point2.y, paint);
+        //恢复当前画布至save状态之前
+        canvas.restore();
+
+//        canvas.save();
+//        canvas.translate(200,100);
+//        canvas.drawBitmap(bitmap, point2.x, point2.y, paint);
+//        canvas.restore();
     }
 }

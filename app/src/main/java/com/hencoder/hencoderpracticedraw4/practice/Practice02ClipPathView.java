@@ -7,12 +7,17 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.Point;
+import android.graphics.RectF;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.View;
 
 import com.hencoder.hencoderpracticedraw4.R;
 
+/**
+ * @author sgx
+ * 范围裁切
+ */
 public class Practice02ClipPathView extends View {
     Paint paint = new Paint();
     Bitmap bitmap;
@@ -39,7 +44,20 @@ public class Practice02ClipPathView extends View {
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
 
+        canvas.save();
+        Path path = new Path();
+        path.addCircle(point1.x + 100,point1.y + 100,100,Path.Direction.CCW);
+        canvas.clipPath(path);
         canvas.drawBitmap(bitmap, point1.x, point1.y, paint);
+        canvas.restore();
+
+        canvas.save();
+        Path path1 = new Path();
+        RectF rectF = new RectF();
+        rectF.set(600,200,800,400);
+        path1.addRect(rectF,Path.Direction.CCW);
+        canvas.clipPath(path1);
         canvas.drawBitmap(bitmap, point2.x, point2.y, paint);
+        canvas.restore();
     }
 }
